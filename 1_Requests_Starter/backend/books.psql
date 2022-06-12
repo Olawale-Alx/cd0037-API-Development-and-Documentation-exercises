@@ -20,7 +20,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: student/postgres
+-- Name: books; Type: TABLE; Schema: public; Owner: student
 --
 DROP TABLE IF EXISTS public.books CASCADE;
 
