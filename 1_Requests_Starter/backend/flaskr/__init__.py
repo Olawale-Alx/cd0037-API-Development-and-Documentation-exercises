@@ -160,4 +160,22 @@ def create_app(test_config=None):
             abort(422)
 
 
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            'success': False,
+            'error': 404,
+            'message': 'resource nor found at the specified id',
+        }), 404
+
+
+    @app.errorhandler(422)
+    def unprocessable(error):
+        return jsonify({
+            'success': True,
+            'error': 422,
+            'message': 'request could not be processed at the moment. try later.'
+        }), 422
+
+
     return app
