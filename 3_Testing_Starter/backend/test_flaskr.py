@@ -7,7 +7,7 @@ from flaskr import create_app
 from models import setup_db, Book
 
 
-class BookTestCase(unittest.TestCase):
+class BookShelfTestCase(unittest.TestCase):
     """This class represents the trivia test case"""
 
     def setUp(self):
@@ -39,6 +39,76 @@ class BookTestCase(unittest.TestCase):
 #        Such as adding a book without a rating, etc.
 #        Since there are four routes currently, you should have at least eight tests.
 # Optional: Update the book information in setUp to make the test database your own!
+    # def test_get_paginated_books(self):
+    #     response = self.client().get('/books')
+    #     data = json.loads(response.data)
+
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(data['success'], True)
+    #     self.assertTrue(data['total_books'])
+    #     self.assertTrue(data['books'])
+
+    # def test_404_sent_requesting_beyond_valid_page(self):
+    #     response = self.client().get('/books?page=1000', json={'rating': 1})
+    #     data = json.loads(response.data)
+
+    #     self.assertEqual(response.status_code, 404)
+    #     self.assertEqual(data['success'], False)
+    #     self.assertTrue(data['message'], 'resource not found')
+
+    # def test_update_book_rating(self):
+    #     response = self.client().patch('/books/3', json={'rating': 2})
+    #     data = json.loads(response.data)
+    #     book = Book.query.filter(Book.id == 3).one_or_none()
+
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(data['success'], True)        
+    #     self.assertTrue(book.format()['rating'], 2)
+    
+    # def test_400_for_failed_update(self):
+    #     response = self.client().patch('/books/3')
+    #     data = json.loads(response.data)
+        
+    #     self.assertEqual(response.status_code, 400)
+    #     self.assertEqual(data['success'], False)
+    #     self.assertTrue(data['message'], 'Invalid request due to client error')
+
+    # def test_delete_book(self):
+    #     response = self.client().delete('/books/6')
+    #     data = json.loads(response.data)
+    #     book = Book.query.filter(Book.id == 6).one_or_none()
+
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(data['success'], True)
+    #     self.assertTrue(data['deleted'], 1)
+    #     self.assertTrue(data['total_books'])
+    #     self.assertTrue(len(data['books']))
+    #     self.assertEqual(book, None)
+
+    # def test_404_if_book_does_not_exist(self):
+    #     response = self.client().delete('/books/999')
+    #     data = json.loads(response.data)
+        
+    #     self.assertEqual(response.status_code, 422)
+    #     self.assertEqual(data['success'], False)
+    #     self.assertTrue(data['message'], 'server was unable to process the request. Check the request and try again later.')
+
+    # def test_create_new_book(self):
+    #     response = self.client().post('/books', json=self.new_book)
+    #     data = json.loads(response.data)
+
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertEqual(data['success'], True)
+    #     self.assertTrue(data['created'])
+    #     self.assertTrue(data['total_books'])
+
+    def test_405_if_book_creation_not_allowed(self):
+        response = self.client().put('/books', json=self.new_book)
+        data = self.client(response.data)
+
+        self.assertEqual(response.status_code, 405)
+        self.assertEqual(data['success'], False)
+        self.assertTrue(data['message'], 'request method not allowed')
 
 
 # Make the tests conveniently executable

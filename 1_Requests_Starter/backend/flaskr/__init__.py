@@ -111,14 +111,14 @@ def create_app(test_config=None):
 
             book.delete()
 
-            formatted = [book.format() for book in book]
+            formatted = [book.format() for books in book]
             page = request.args.get('page', 1, type=int)
             start = (page - 1) * BOOKS_PER_SHELF
             end = start + BOOKS_PER_SHELF
 
             return jsonify({
                 'success': True,
-                'id': book_id,
+                'deleted': book_id,
                 'books': formatted[start:end],
                 'total_books': len(Book.query.all())
             })
